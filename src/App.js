@@ -1,54 +1,50 @@
-import { useRef, useState } from "react";
-import "./App.css";
+import { useState, useEffect } from "react";
+import "./Style.css";
 
 function App() {
-  const [todos, setTodos] = useState([]);
-  const inputRef = useRef();
-  
-  const handleAddTodo = () => {
-    const text = inputRef.current.value;
-    const newItem = { completed: false, text };
-    setTodos([...todos, newItem]);
-    inputRef.current.value = "";
-  };
+  // تحميل المهام من localStorage عند أول تشغيل
+  const [todos, setTodos] = useState(() => {
+    const saved = localStorage.getItem("todos");
+    return saved ? JSON.parse(saved) : [];
+  });
 
+  // حفظ التغييرات بعد التأشير على المهام
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
+
+  // عند تأشير المستخدم على المهمة كمكتملة أو غير مكتملة
   const handleItemDone = (index) => {
     const newTodos = [...todos];
     newTodos[index].completed = !newTodos[index].completed;
     setTodos(newTodos);
   };
 
-  const handleDeleteItem = (index) => {
-    const newTodos = [...todos];
-    newTodos.splice(index, 1)
-    setTodos(newTodos)
-  }
-
   return (
-    <div className="App">
+    <div className="Box">
       <h1>قائمة المهام</h1>
       <div className="to-do-container">
         <ul>
-          {todos.map(({ text, completed }, index) => {
-            return (
-              <div className="item">
-                <span onClick={() => handleDeleteItem(index)} className="trash">X</span>
+          {todos.length === 0 ? (
+            <p>لا توجد مهام حالياً</p>
+          ) : (
+            todos.map(({ text, completed }, index) => (
+              <div key={index} className="item">
                 <input
                   type="checkbox"
                   checked={completed}
                   onChange={() => handleItemDone(index)}
                 />
-                <li className={completed ? "done" : ""}>
-                  {text}
-                </li>
-                
+                <li className={completed ? "done" : ""}>{text}</li>
               </div>
-            );
-          })}
+            ))
+          )}
         </ul>
-        <input ref={inputRef} placeholder="أضف مهمتك هنا" />
-        <button onClick={handleAddTodo}>إضافة مهمة</button>
       </div>
+
+      {/* رابط للانتقال إلى صفحة الإعدادات */}
+        <button className="link" onClick={() => (window.location.href = "/settings")}>تعديل المهام</button>
+
     </div>
   );
 }

@@ -1,0 +1,83 @@
+* {
+  direction: rtl;
+  font-family: "Droid Arabic Kufi", "Droid Sans", sans-serif;
+  font-size: 20px;
+  background-color: white;
+  color: #43B3AE;
+}
+
+.Box {
+  border: 10px solid #43B3AE;
+  border-radius: 20px;
+  margin: 50px 300px;
+  padding: 50px;
+}
+
+h1 {
+  font-size: 50px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.to-do-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.to-do-container ul li {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  list-style-type: none;
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+.done {text-decoration: line-through;}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.item li {
+  flex-grow: 1;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.trash {
+  cursor: pointer;
+  color: red;
+  font-weight: bold;
+}
+
+button {
+  color: #2d706d;
+  height: 30px;
+  width: 170px;
+  margin: 10px auto;
+  border-radius: 10px;
+  background-color: #b7fffb;
+}
+
+button:hover {background-color: #77e2dd;}
+
+.link button {
+  justify-content: space-between;
+}
+
+input[type="checkbox"] {
+  accent-color: green;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+input[type="textbox"] {
+  color: black;
+  background-color: white;
+  cursor: pointer;
+}
